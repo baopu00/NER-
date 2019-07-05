@@ -1,7 +1,7 @@
 #encoding=utf8
 import os,random
 # 利用相似词字典对实体进行替换，每个样本只修改一个实体，修改实体类别可以选择。
-# 注意：不要重复函数写入，可以设置count来
+# 注意：不要重复函数写入，可以设置count来。如果重复生成需要改命名规则 ii的取值范围
 def data_aug(input_path,output_path,f_dict_path,label,count):
     """
     input_path: 原始数据路径
@@ -98,3 +98,13 @@ label = 'Port'
 dict_path = '/Users/juniorfellow/Desktop/starsee/Port.txt' #字典路径 对应label
 count = 2
 print(data_aug(input_path,output_path,f_dict_path,label,count))
+
+
+
+######针对性删除错误样本
+ for file in os.listdir(output_path):
+    if '6258' in file:
+        print(1111)
+        os.remove(output_path+file)
+        
+   
