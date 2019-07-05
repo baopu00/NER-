@@ -1,7 +1,7 @@
 #encoding=utf8
 import os,random
-
-#注意：不要重复函数写入，可以设置count来
+# 利用相似词字典对实体进行替换，每个样本只修改一个实体，修改实体类别可以选择。
+# 注意：不要重复函数写入，可以设置count来
 def data_aug(input_path,output_path,f_dict_path,label,count):
     """
     input_path: 原始数据路径
