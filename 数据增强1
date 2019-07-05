@@ -1,0 +1,98 @@
+#encoding=utf8
+import os,random
+
+def data_aug(input_path,output_path,f_dict_path,label,count):
+    """
+    input_path: 原始数据路径
+    output_path: 增强数据保存路径
+    f_dict_path: 相似词词典路径
+    label: 替换实体类别
+    count: 替换循环次数
+    """
+    for ii  in range(count):
+        f_dict = open(dict_path,'r',encoding='utf8')
+        list_dic = [i.strip() for i in f_dict.readlines()]
+        random.shuffle(list_dic)
+        list_dic[0]
+
+        length = len(list_dic[0])
+
+        # f_dict = open('/Users/juniorfellow/Desktop/starsee/Port.txt','r',encoding='utf8')
+        # ff = f_dict.readlines()
+
+        for file in os.listdir(input_path):
+            if ".txt" in file:
+                f1=open(input_path+file,'r',encoding='utf8') #原始文本
+                line1 = f1.readline()
+                f2=open(input_path+file.replace('txt','ann'),'r',encoding='utf8')
+
+                list1 = []    # 存word和标签  这里就是
+                for line2 in f2:  #原始标注 单独把所有标签取出来 为的看里面又没有port
+
+                    list1.append(line2.strip().split('\t')[1].split(' ')[0])
+                f2.close()
+                num = 0
+                if label in list1:
+
+                    f2=open(input_path+file.replace('txt','ann'),'r',encoding='utf8')
+                    cha = 0
+                    start = ''
+                    end = ''
+                    for line2 in f2:  #原始标注   
+
+
+                        i = line2.strip().split('\t')[1].split(' ')[0]
+                        list2 = [] #每一行都要清空list2
+                        f4=open(output_path+'new'+str(ii)+'_'+file.replace('txt','ann'),'a',encoding='utf8')
+                        if i == label and num==0: #替换
+
+                            #替换原始文本  首先要判断是否有port
+                            f3=open(output_path+'new'+str(ii)+'_'+file,'w',encoding='utf8')
+                            example = line2.strip().split('\t')[2]
+                            f3.write(line1.replace(example,list_dic[0],1))
+                            f3.close()
+                            list2.append(line2.strip().split('\t')[0])
+                            #数字变化
+                            start = line2.strip().split('\t')[1].split(' ')[1]
+                            end = line2.strip().split('\t')[1].split(' ')[2]
+                            cha = length - len(example)
+                            print('cha:')
+                            print(cha)
+
+
+                            list2.append(i+' '+ start + ' ' + str(eval(end)+cha))
+
+                            list2.append(list_dic[0])
+                            f4.write('\t'.join(list2))
+                            f4.write('\n')
+
+                            num+=1
+
+                        else:
+                            list2.append(line2.strip().split('\t')[0])
+                            #数字变化
+
+                            start = line2.strip().split('\t')[1].split(' ')[1]
+                            end = line2.strip().split('\t')[1].split(' ')[2]
+
+                            list2.append(i+' '+ str(eval(start)+ cha) + ' ' + str(eval(end)+cha))
+
+                            list2.append(line2.strip().split('\t')[2])
+                            f4.write('\t'.join(list2))
+                            f4.write('\n')
+
+
+                        f4.close()
+
+
+                f1.close()
+                f2.close()
+                #判断文本中有port标签
+    return 'finish'
+    
+    
+input_path ='/Users/juniorfellow/Desktop/starsee/bilstm-crf-sequence-tagger/data/army_18/'
+output_path = '/Users/juniorfellow/Desktop/Port/'
+label = 'Port'
+dict_path = '/Users/juniorfellow/Desktop/starsee/Port.txt' #字典路径 对应label
+print(data_aug(input_path,output_path,f_dict_path,label,2))
