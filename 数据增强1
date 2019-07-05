@@ -1,6 +1,7 @@
 #encoding=utf8
 import os,random
 
+#注意：不要重复函数写入，可以设置count来
 def data_aug(input_path,output_path,f_dict_path,label,count):
     """
     input_path: 原始数据路径
@@ -95,4 +96,5 @@ input_path ='/Users/juniorfellow/Desktop/starsee/bilstm-crf-sequence-tagger/data
 output_path = '/Users/juniorfellow/Desktop/Port/'
 label = 'Port'
 dict_path = '/Users/juniorfellow/Desktop/starsee/Port.txt' #字典路径 对应label
-print(data_aug(input_path,output_path,f_dict_path,label,2))
+count = 2
+print(data_aug(input_path,output_path,f_dict_path,label,count))
