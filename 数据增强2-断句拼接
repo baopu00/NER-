@@ -48,7 +48,7 @@ def extrate_info(list_filename,pre): #pre 前一句子的字典长度
                 # 确定属于哪个短句
                 def get_ind(length_sum_list,start,end,example):
 
-                    for ind in range(len(length_sum_list)-1 + pre):
+                    for ind in range(len(length_sum_list)-1 ):
                         if eval(start) >= length_sum_list[ind] and eval(end) < length_sum_list[ind+1]:  
                             start = str(eval(start)- length_sum_list[ind])
                             end = str(eval(end)- length_sum_list[ind])
