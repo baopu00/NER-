@@ -1,0 +1,32 @@
+import re
+
+def zhengze(line,rr):
+    if rr.findall(line):
+        return rr.findall(line)[0]
+    else:
+        return []
+rr1 = re.compile(r'\S*名称：\S*')
+rr2 = re.compile(r'\S*机长：\S*')
+rr3 = re.compile(r'\S*翼展：\S*')
+rr4 = re.compile(r'\S*机高：\S*')
+rr5 = re.compile(r'\S*空重：\S*')
+rr6 = re.compile(r'\S*最大飞行速度：\S*')
+rr7 = re.compile(r'\S*最大航程：\S*')
+rr8 = re.compile(r'\S*空重：\S*')
+rr9 = re.compile(r'\S*研发单位：\S*')
+rr10 = re.compile(r'\S*（1）\S*')
+rr11 = re.compile(r'\S*（2）\S*')
+rr12 = re.compile(r'\S*（3）\S*')
+rr13 = re.compile(r'\S*（4）\S*')
+
+with open('/Users/juniorfellow/Desktop/feiji_1.json','r',encoding='utf8') as f2:
+    text = f2.readlines()
+    for line in text:
+        line = line.replace('\\n',' ')
+        line = line.replace('"',' ')
+#         line = line.replace('射程：远程导弹',' ')
+#         line = line.replace('射程：中程导弹',' ')
+#         line = line.replace('射程：近程导弹',' ')
+#         line = line.replace('射程：洲际导弹',' ')
+        print(zhengze(line,rr13))
+        
